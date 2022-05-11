@@ -4,6 +4,7 @@ const cors = require('cors');
 const bcrypt = require("bcryptjs"); 
 const app = express();
 
+
 const schoolStudents = require('./Routes/schoolStudent');
 const cookieParser = require('cookie-parser');
 
