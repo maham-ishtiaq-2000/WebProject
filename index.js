@@ -12,6 +12,9 @@ const card = require('./Routes/card');
 const student = require('./Routes/student');
 const classes = require('./Routes/class');
 const schoolStudents = require('./Routes/schoolStudent');
+const cookieParser = require('cookie-parser');
+
+ 
 const jwt = require("jsonwebtoken");
 
 console.log(process.env.SECRET_KEY)
@@ -47,7 +50,7 @@ app.set('view engine', 'ejs');
 app.use(cors(corsOptions));
 app.use(express.json());
 // var port = process.env.PORT || 8080;
-
+app.use(cookieParser());
 app.use(express.static(__dirname + '/uploads'));
 
 app.use('/api/tailor', tailor);
@@ -59,6 +62,7 @@ app.use('/api/teacher',teacher);
 app.use('/api/student',student);
 app.use('/api/classes',classes);
 app.use('/api/schoolStudents',schoolStudents)
+
 const mongoose = require('mongoose');
 mongoose.connect("mongodb+srv://maham:maham2000@cluster0.5vxx9.mongodb.net/tinder-clone?retryWrites=true&w=majority",
     { useNewUrlParser: true },
@@ -73,7 +77,12 @@ app.get('/', (req, res) => {
     // res.render('index');
 })
 
+//heuroko
 
+if (process.env.NODE_ENV == 'production'){
+    app.use(express.static("frontendnew/build"));
+    
+}
 
 app.listen(process.env.PORT || 8080, () => {
     console.log("listening on port no 8080");

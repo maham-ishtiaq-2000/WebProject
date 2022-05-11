@@ -7,6 +7,7 @@ const fs = require('fs');
 var XLSX = require("xlsx");
 
 
+
 //-----     add a student     ------//
 router.post('/addAstudent', async (req, res) => {
     const result = schoolStudents_validation(req.body);
@@ -36,6 +37,7 @@ router.post('/addAstudent', async (req, res) => {
 
         const token = await new_student.generateAuthToken();
         console.log(token)
+        
         const student = await new_student.save();
 
      
@@ -56,6 +58,9 @@ router.post('/addAstudent', async (req, res) => {
 })
 
 //login a teacher
+
+
+
 
 router.post('/login', async (req, res) => {
     
@@ -86,12 +91,15 @@ router.post('/login', async (req, res) => {
         if (get_student) {
             const token = await get_student.generateAuthToken();
             console.log(token)
+           
             return res.json             
                 ({
                     success: true,
                     data: get_student,
+                   
                 })
         }
+        
     }
     catch (err) {
         return res.json
@@ -104,6 +112,7 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/all_school_students/:tr_code/:sec/:subject_name/:class', async (req, res) => {
+
     const get_all_students = await schoolStudents.find({tr_code : req.params.tr_code , sec : req.params.sec , subject_name : req.params.subject_name , class : req.params.class})
     if (get_all_students == null)
         return res.json
@@ -154,6 +163,13 @@ router.put('/addMarksofAStudent/:subject_name', async (req, res) => {
         console.log(err)
     }
 })
+
+router.post("/ok" , async(req,res) =>{
+    res.cookie("key","value");
+    res.send("Check your cookies mate!");
+})
+
+
 
 
  

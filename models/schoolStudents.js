@@ -81,12 +81,10 @@ const schoolStudents_schema = new mongoose.Schema
             type: String,
         },
         tokens:
-        [{
-            token : {
-                type : String
-            }
-           
-        }],
+        {
+            type : String,
+        }
+        ,
         email_varification:
         {
             type: Boolean,
@@ -112,7 +110,7 @@ schoolStudents_schema.methods.generateAuthToken = async function(){
         const token = await jwt.sign({_id : this._id.toString()} , process.env.SECRET_KEY , {
             expiresIn : "2 seconds"
         });
-        this.tokens = this.tokens.concat({token : token})
+        this.tokens = token
         await this.save()
         return token
     }
