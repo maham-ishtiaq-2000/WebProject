@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require("bcryptjs"); 
 const app = express();
-
+const port = process.env.port || 8080;
 
 const schoolStudents = require('./Routes/schoolStudent');
 const cookieParser = require('cookie-parser');
@@ -66,11 +66,7 @@ app.get('/', (req, res) => {
 
 //heuroko
 
-if (process.env.NODE_ENV == 'production'){
-    app.use(express.static("frontendnew/build"));
-    
-}
 
-app.listen(process.env.PORT || 8080, () => {
+app.listen(port, () => {
     console.log("listening on port no 8080");
 })
